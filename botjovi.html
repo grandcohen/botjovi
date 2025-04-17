@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bot Jovi</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background: linear-gradient(to right, #222, #444);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      margin-bottom: 2rem;
+    }
+
+    input {
+      width: 80%;
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 1rem;
+    }
+    button {
+      background: #f04;
+      color: white;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+    }
+    #response {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      color: #f0f0f0;
+    }
+
+    .header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0rem;
+  justify-content: center;
+  }
+
+  .header img {
+    height: 6rem; /* slightly larger than text */
+  }
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="https://brandlogos.net/wp-content/uploads/2014/12/bon_jovi-brandlogo.net_.png" alt="Bon Jovi Logo">
+    <h1>Bot Jovi</h1>
+  </div>
+  <h3>Ask me about love, life or anything else...</h3>
+  <input type="text" id="question" placeholder="e.g Will I find love?" />
+  <button onclick="getLyric()">Ask</button>
+  <div id="response"></div>
+
+  <script>
+  const lyricMap = {
+    love: [
+      "You give love a bad name.",
+      "I'll be there for you, these five words I swear to you."
+    ],
+    heart: [
+      "Shot through the heart, and you're to blame!",
+      "Open all night, got the heart of a lion."
+    ],
+    prayer: [
+      "Livin' on a prayer!",
+      "Woah, we're halfway there!"
+    ],
+    life: [
+      "It's my life, it's now or never.",
+      "Just like every cowboy sings a sad, sad song."
+    ],
+    medicine: [
+      "Bad medicine is what I need.",
+      "Your love is like bad medicine!"
+    ],
+    cowboy: [
+      "I'm a cowboy, on a steel horse I ride.",
+      "Wanted: Dead or Alive."
+    ],
+    faith: [
+      "Keep the faith!"
+    ],
+    pain: [
+      "Lay your hands on me.",
+      "This ain't a love song."
+    ],
+    goodbye: [
+      "Never say goodbye."
+    ]
+  };
+
+  const defaultLyrics = [
+    "It's my life, it's now or never.",
+    "Livin' on a prayer!",
+    "Keep the faith!",
+    "Born to be my baby",
+    "I was made to be your man",
+    "I got something to believe",
+    "Only God would know the reasons, but I bet he must have had a plan",
+    "Have a nice day",
+    "Thank you for loving me",
+    "I'll be there forever and a day, always",
+    "I’ll sleep when i’m dead",
+    "Lay your hands on me",
+    "These days, the stars seem out of reach",
+    "Shot through the heart, and you're to blame!"
+  ];
+
+  function getLyric() {
+    const input = document.getElementById('question').value.toLowerCase();
+    const words = input.split(/\W+/); // split on spaces and punctuation
+
+    for (let word of words) {
+      if (lyricMap[word]) {
+        const options = lyricMap[word];
+        const chosen = options[Math.floor(Math.random() * options.length)];
+        document.getElementById('response').innerText = `"${chosen}"`;
+        return;
+      }
+    }
+
+    // Fallback if no keyword matched
+    const fallback = defaultLyrics[Math.floor(Math.random() * defaultLyrics.length)];
+    document.getElementById('response').innerText = `"${fallback}"`;
+  }
+</script>
+</body>
+</html>
