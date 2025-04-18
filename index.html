@@ -19,6 +19,13 @@
       padding: 2rem;
       text-align: center;
     }
+
+    form {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
     h1 {
       font-family: "Miss Fajardose", cursive;
       font-size: 4.5rem;
@@ -32,7 +39,7 @@
     }
 
     input {
-      width: 80%;
+      width: 100%;
       padding: 0.8rem;
       font-size: 1.1rem;
       border-radius: 5px;
@@ -61,26 +68,69 @@
   justify-content: center;
   }
 
+
+  img {
+    height: 6rem;
+  }
+
   .header img {
-    height: 6rem; /* slightly larger than text */
+    height: 6rem;
   }
   html, body {
   height: 100%;
 }
 
+/* Only show red styles if form has been submitted */
+.was-validated input:invalid {
+  border: 2px solid red;
+  background-color: #fff0f0;
+}
+
+.was-validated input:valid {
+  border: 2px solid #ccc;
+  background-color: white;
+}
+
+
+
   </style>
 </head>
 <body>
+  <!--
   <div class="header">
     <img src="https://brandlogos.net/wp-content/uploads/2014/12/bon_jovi-brandlogo.net_.png" alt="Bon Jovi Logo">
     <h1>Bot Jovi</h1>
   </div>
+  -->
+<h1>Bot Jovi</h1>
+  <img src="https://brandlogos.net/wp-content/uploads/2014/12/bon_jovi-brandlogo.net_.png" alt="Bon Jovi Logo">
+    
   <h3>Ask me about love, life or anything else...</h3>
-  <input type="text" id="question" placeholder="e.g Will I find love?" />
-  <button onclick="getLyric()">Ask</button>
+  <form id="botForm" onsubmit="handleSubmit(event)">
+  <input type="text" id="question" placeholder="e.g Will I find love?" required />
+  <br />
+  <button type="submit">Ask</button>
+</form>
+
   <div id="response"></div>
 
   <script>
+
+    function handleSubmit(event) {
+    const form = document.getElementById("botForm");
+    form.classList.add("was-validated");
+
+    // Stop form from actually submitting if input is invalid
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+
+    event.preventDefault(); // prevent form from reloading the page
+    getLyric(); // your existing function
+  }
+    /*
   const lyricMap = {
     love: [
       "You give love a bad name.",
@@ -117,8 +167,24 @@
       "Never say goodbye."
     ]
   };
-
+*/
   const defaultLyrics = [
+    "You give love a bad name.",
+    "I'll be there for you, these five words I swear to you.",
+    "Shot through the heart, and you're to blame!",
+    "Open all night, got the heart of a lion.",
+    "Livin' on a prayer!",
+    "Woah, we're halfway there!",
+    "It's my life, it's now or never.",
+    "Just like every cowboy sings a sad, sad song.",
+    "Bad medicine is what I need.",
+    "Your love is like bad medicine!",
+    "I'm a cowboy, on a steel horse I ride.",
+    "Wanted: Dead or Alive.",
+    "Keep the faith!",
+    "Lay your hands on me.",
+    "This ain't a love song.",
+    "Never say goodbye.",
     "It's my life, it's now or never.",
     "Livin' on a prayer!",
     "Keep the faith!",
@@ -136,6 +202,14 @@
   ];
 
   function getLyric() {
+      const question = document.getElementById('question').value;
+      if (question.trim() === "") return;
+      const randomLyric = defaultLyrics[Math.floor(Math.random() * defaultLyrics.length)];
+      document.getElementById('response').innerText = randomLyric;
+    }
+
+/*
+  function getLyric() {
     const input = document.getElementById('question').value.toLowerCase();
     const words = input.split(/\W+/); // split on spaces and punctuation
 
@@ -152,6 +226,7 @@
     const fallback = defaultLyrics[Math.floor(Math.random() * defaultLyrics.length)];
     document.getElementById('response').innerText = `"${fallback}"`;
   }
+  */
 </script>
 </body>
 </html>
